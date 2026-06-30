@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AksaraDeskripsi - Media Pembelajaran Struktur Teks Deskripsi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#06B6D4',
+                        accent: '#F59E0B',
+                        indigoLight: '#EEF2FF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-gradient-to-r from-indigo-700 via-indigo-600 to-cyan-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white p-2 rounded-xl shadow-md text-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black tracking-tight flex items-center gap-2">
+                            AksaraDeskripsi
+                        </h1>
+                        <p class="text-xs text-indigo-100 font-medium">Media Interaktif Struktur Teks Deskripsi • Bahasa Indonesia</p>
+                    </div>
+                </div>
+
+                <!-- Badges/Stats -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <div class="bg-indigo-800/50 backdrop-blur-md px-4 py-2 rounded-lg border border-indigo-400/20 text-sm">
+                        <span>🎯 Status: </span>
+                        <span id="global-status" class="font-bold text-cyan-200">Belajar</span>
+                    </div>
+                    <div class="bg-amber-500 text-slate-950 font-bold px-4 py-2 rounded-lg text-sm shadow-md flex items-center gap-2">
+                        <span>⭐ Skor Kuis: </span>
+                        <span id="global-score">0/100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="bg-indigo-800/40 border-t border-indigo-500/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="flex space-x-1 sm:space-x-4 py-2 overflow-x-auto" aria-label="Tabs">
+                    <button onclick="switchTab('materi')" id="tab-materi" class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 bg-white text-indigo-700 shadow-sm flex items-center gap-2 shrink-0">
+                        <span>📖</span> Materi Interaktif
+                    </button>
+                    <button onclick="switchTab('analisis')" id="tab-analisis" class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 text-indigo-100 hover:bg-indigo-700/50 flex items-center gap-2 shrink-0">
+                        <span>🔍</span> Analisis Teks
+                    </button>
+                    <button onclick="switchTab('susun')" id="tab-susun" class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 text-indigo-100 hover:bg-indigo-700/50 flex items-center gap-2 shrink-0">
+                        <span>🧩</span> Game Susun Paragraf
+                    </button>
+                    <button onclick="switchTab('kuis')" id="tab-kuis" class="tab-btn px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 text-indigo-100 hover:bg-indigo-700/50 flex items-center gap-2 shrink-0">
+                        <span>📝</span> Kuis Evaluasi
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Welcome Banner (Dapat ditutup) -->
+        <div id="welcome-banner" class="bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-2xl p-6 md:p-8 text-white shadow-xl mb-8 relative overflow-hidden transition-all duration-500">
+            <!-- Background Decorative Circles -->
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-xl"></div>
+            <div class="absolute -left-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-xl"></div>
+            
+            <div class="relative z-10 max-w-3xl">
+                <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Selamat Datang, Sobat Bahasa! 👋</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold mt-3 mb-2 leading-tight">Kuasai Struktur Teks Deskripsi dengan Cara yang Seru!</h2>
+                <p class="text-indigo-50/90 text-sm md:text-base mb-6">Mampu menggambarkan objek secara hidup adalah sebuah keahlian hebat. Mari pelajari bagaimana teks deskripsi dibangun secara sistematis melalui materi interaktif, game, dan kuis menantang di bawah ini!</p>
+                <button onclick="dismissWelcome()" class="bg-white text-indigo-700 hover:bg-indigo-50 font-bold px-5 py-2.5 rounded-xl text-sm transition-all shadow-md active:scale-95">
+                    Mulai Belajar Sekarang →
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 1: MATERI ==================== -->
+        <div id="content-materi" class="tab-content transition-all duration-300">
+            <div class="text-center mb-10">
+                <h3 class="text-2xl font-bold text-slate-800">Mari Kenali 3 Pilar Utama</h3>
+                <p class="text-slate-500 mt-2">Sebuah teks deskripsi yang baik memiliki fondasi struktur yang kokoh. Klik tiap kartu untuk mempelajari penjelasannya!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Struktur 1: Identifikasi -->
+                <div class="bg-white rounded-2xl border-2 border-indigo-100 hover:border-indigo-400 p-6 shadow-md transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between">
+                    <div>
+                        <div class="bg-indigo-100 text-indigo-700 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-xl mb-4">1</div>
+                        <h4 class="text-xl font-bold text-indigo-900 mb-2">Identifikasi / Gambaran Umum</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Bagian pembuka yang berisi pengenalan nama objek yang dideskripsikan, lokasi, sejarah lahirnya, makna nama, atau pernyataan umum lainnya tentang objek tersebut.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-bold text-indigo-500 uppercase tracking-wider block mb-2">🔎 Kata Kunci Pembantu:</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-md font-medium">Nama Objek</span>
+                            <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-md font-medium">Lokasi</span>
+                            <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-md font-medium">Definisi Umum</span>
+                        </div>
+                        <button onclick="showMateriModal('identifikasi')" class="w-full mt-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-bold py-2 rounded-xl transition">
+                            Lihat Contoh Paragraf
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Struktur 2: Deskripsi Bagian -->
+                <div class="bg-white rounded-2xl border-2 border-emerald-100 hover:border-emerald-400 p-6 shadow-md transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between">
+                    <div>
+                        <div class="bg-emerald-100 text-emerald-700 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-xl mb-4">2</div>
+                        <h4 class="text-xl font-bold text-emerald-900 mb-2">Deskripsi Bagian</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Bagian yang berisi perincian mendetail berdasarkan tanggapan subjektif penulis. Menggambarkan apa yang dilihat (bagian, warna), didengar (suara), atau dirasakan oleh penulis.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-2">👁️ Alat Indra & Detail:</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-md font-medium">Penglihatan</span>
+                            <span class="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-md font-medium">Pendengaran</span>
+                            <span class="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-md font-medium">Ciri Fisik</span>
+                        </div>
+                        <button onclick="showMateriModal('deskripsi_bagian')" class="w-full mt-4 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-sm font-bold py-2 rounded-xl transition">
+                            Lihat Contoh Paragraf
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Struktur 3: Simpulan/Kesan -->
+                <div class="bg-white rounded-2xl border-2 border-amber-100 hover:border-amber-400 p-6 shadow-md transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between">
+                    <div>
+                        <div class="bg-amber-100 text-amber-700 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-xl mb-4">3</div>
+                        <h4 class="text-xl font-bold text-amber-900 mb-2">Simpulan / Kesan Umum</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Bagian penutup teks yang berisi simpulan atau kesan umum/opini subjektif dari penulis mengenai objek yang telah digambarkan sebelumnya (bersifat opsional/pilihan).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-wider block mb-2">✍️ Bentuk Refleksi:</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="bg-amber-50 text-amber-700 text-xs px-2.5 py-1 rounded-md font-medium">Kesan Pribadi</span>
+                            <span class="bg-amber-50 text-amber-700 text-xs px-2.5 py-1 rounded-md font-medium">Opini Penulis</span>
+                            <span class="bg-amber-50 text-amber-700 text-xs px-2.5 py-1 rounded-md font-medium">Rasa Kagum</span>
+                        </div>
+                        <button onclick="showMateriModal('simpulan')" class="w-full mt-4 bg-amber-50 hover:bg-amber-100 text-amber-700 text-sm font-bold py-2 rounded-xl transition">
+                            Lihat Contoh Paragraf
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interaktif Teori Tambahan -->
+            <div class="mt-12 bg-white rounded-2xl p-6 md:p-8 border border-slate-100 shadow-sm">
+                <h4 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">💡 Tips Cepat Mengingat Struktur</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-indigo-500">
+                        <p class="font-semibold text-indigo-900 text-sm">Bagaimana cara membedakan Identifikasi & Deskripsi Bagian?</p>
+                        <p class="text-slate-600 text-xs mt-1">Identifikasi menjawab pertanyaan <em>"Apa objek itu dan di mana letaknya?"</em>, sedangkan Deskripsi Bagian menjawab pertanyaan <em>"Seperti apa bentuk, rasa, warna, atau suasana dari objek tersebut secara rinci?"</em></p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border-l-4 border-amber-500">
+                        <p class="font-semibold text-amber-900 text-sm">Apakah Simpulan wajib ada?</p>
+                        <p class="text-slate-600 text-xs mt-1">Tidak wajib. Struktur Simpulan bersifat opsional dalam teks deskripsi. Namun, keberadaannya mempermanis akhir bacaan dengan kesan mendalam penulis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 2: ANALISIS TEKS ==================== -->
+        <div id="content-analisis" class="tab-content hidden transition-all duration-300">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-slate-800">Laboratorium Analisis Struktur Teks</h3>
+                <p class="text-slate-500 mt-2">Pilihlah salah satu paragraf pada teks di bawah untuk membedah strukturnya secara interaktif!</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Teks Interaktif -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                        <!-- Judul Teks -->
+                        <div class="border-b border-slate-100 pb-4 mb-6">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full">Contoh Teks Analisis</span>
+                            <h4 class="text-2xl font-extrabold text-indigo-900 mt-2">Kemegahan Candi Borobudur</h4>
+                        </div>
+
+                        <!-- Paragraf-Paragraf yang dapat diklik -->
+                        <div class="space-y-6">
+                            <div id="p-analisis-1" onclick="analyzeParagraph(1)" class="p-4 rounded-xl cursor-pointer border border-transparent hover:border-indigo-200 hover:bg-indigo-50/40 transition-all duration-200 group">
+                                <div class="flex items-start justify-between">
+                                    <span class="text-xs font-semibold text-slate-400 group-hover:text-indigo-500">Paragraf 1 (Klik untuk Analisis)</span>
+                                    <span class="status-dot w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed mt-2 text-justify">
+                                    Candi Borobudur adalah salah satu candi Buddha terbesar di dunia yang terletak di Magelang, Provinsi Jawa Tengah. Candi yang megah ini didirikan pada abad ke-8 oleh Wangsa Syailendra sebagai tempat ibadah umat Buddha sekaligus monumen peringatan yang sangat agung.
+                                </p>
+                            </div>
+
+                            <div id="p-analisis-2" onclick="analyzeParagraph(2)" class="p-4 rounded-xl cursor-pointer border border-transparent hover:border-indigo-200 hover:bg-indigo-50/40 transition-all duration-200 group">
+                                <div class="flex items-start justify-between">
+                                    <span class="text-xs font-semibold text-slate-400 group-hover:text-indigo-500">Paragraf 2 (Klik untuk Analisis)</span>
+                                    <span class="status-dot w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed mt-2 text-justify">
+                                    Candi ini memiliki struktur berundak yang terdiri dari sembilan pelataran bertingkat dengan sebuah stupa induk di puncaknya. Setiap dinding Borobudur dihiasi relief indah berukir tinggi yang bercerita tentang kisah-kisah keagamaan. Saat berjalan menanjak, kita akan melihat ratusan stupa berongga berbentuk lonceng dengan patung Buddha yang sedang bermeditasi di dalamnya.
+                                </p>
+                            </div>
+
+                            <div id="p-analisis-3" onclick="analyzeParagraph(3)" class="p-4 rounded-xl cursor-pointer border border-transparent hover:border-indigo-200 hover:bg-indigo-50/40 transition-all duration-200 group">
+                                <div class="flex items-start justify-between">
+                                    <span class="text-xs font-semibold text-slate-400 group-hover:text-indigo-500">Paragraf 3 (Klik untuk Analisis)</span>
+                                    <span class="status-dot w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed mt-2 text-justify">
+                                    Mengunjungi Candi Borobudur selalu menimbulkan kekaguman yang mendalam bagi saya. Warisan budaya dunia ini tidak hanya luar biasa secara arsitektur, tetapi juga memancarkan kedamaian dan keindahan yang tak lekang oleh waktu.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Analisis Detail -->
+                <div class="lg:col-span-1">
+                    <div id="analysis-panel-empty" class="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center h-full flex flex-col justify-center items-center">
+                        <div class="text-4xl mb-4">💡</div>
+                        <h5 class="text-lg font-bold text-slate-700">Belum Ada Paragraf Terpilih</h5>
+                        <p class="text-sm text-slate-500 mt-2">Silakan klik salah satu paragraf di sebelah kiri untuk melihat analisis strukturnya di panel ini.</p>
+                    </div>
+
+                    <div id="analysis-panel-result" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md h-full hidden flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                                <h5 class="text-lg font-bold text-slate-800">Hasil Bedah Struktur</h5>
+                                <span id="structure-badge" class="px-3 py-1 text-xs font-bold rounded-full">Struktur</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <span class="text-xs font-bold text-slate-400 block uppercase">Nama Struktur</span>
+                                    <p id="structure-name" class="text-xl font-extrabold text-slate-800 mt-0.5">Nama Struktur</p>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-400 block uppercase">Alasan Analisis</span>
+                                    <p id="structure-reason" class="text-sm text-slate-600 leading-relaxed mt-1">Alasan mengapa paragraf ini termasuk ke dalam struktur tersebut.</p>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-400 block uppercase">Fitur Kebahasaan Kunci</span>
+                                    <ul id="structure-features" class="list-disc pl-5 text-sm text-slate-600 space-y-1 mt-1">
+                                        <li>Fitur 1</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-100">
+                            <div class="bg-indigo-50 p-3 rounded-xl flex items-center gap-3">
+                                <span class="text-lg">🎉</span>
+                                <p class="text-xs text-indigo-800 font-medium">Bagus sekali! Kamu sedang memperdalam pemahaman analisis struktural teks deskripsi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 3: GAME SUSUN PARAGRAF ==================== -->
+        <div id="content-susun" class="tab-content hidden transition-all duration-300">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-slate-800">🧩 Tantangan Susun Struktur Paragraf</h3>
+                <p class="text-slate-500 mt-2">Disediakan paragraf acak dari teks deskripsi berjudul <strong>"Si Kiko, Kelinciku"</strong>. Urutkanlah paragraf di bawah ini agar membentuk teks deskripsi yang utuh dan terstruktur!</p>
+            </div>
+
+            <!-- Game Board -->
+            <div class="bg-indigo-50/60 rounded-2xl p-6 border border-indigo-100 shadow-sm max-w-4xl mx-auto">
+                
+                <!-- Cards Container -->
+                <div id="scrambled-container" class="space-y-4 mb-8">
+                    <!-- Cards will be populated by JavaScript -->
+                </div>
+
+                <!-- Controls & Status -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-indigo-100/80 pt-6">
+                    <div class="text-center sm:text-left">
+                        <span class="text-xs text-slate-500 block">Panduan Permainan:</span>
+                        <p class="text-sm font-semibold text-slate-700">Klik tombol <span class="text-indigo-600 font-bold">Naik</span> atau <span class="text-indigo-600 font-bold">Turun</span> pada tiap kartu untuk mengatur urutannya!</p>
+                    </div>
+                    <div class="flex space-x-3 w-full sm:w-auto">
+                        <button onclick="resetGame()" class="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-sm bg-white hover:bg-slate-50 transition active:scale-95">
+                            Acak Ulang
+                        </button>
+                        <button onclick="checkGameOrder()" class="flex-1 sm:flex-initial px-6 py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-sm hover:bg-indigo-700 shadow-md transition active:scale-95">
+                            Periksa Jawaban
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Success Alert -->
+                <div id="game-success-banner" class="hidden mt-6 bg-emerald-500 text-white p-5 rounded-xl flex items-center justify-between shadow-lg">
+                    <div class="flex items-center gap-4">
+                        <span class="text-3xl">🏆</span>
+                        <div>
+                            <h5 class="font-extrabold text-lg">Luar Biasa, Kamu Benar!</h5>
+                            <p class="text-xs text-emerald-100">Susunan paragrafmu sempurna: Identifikasi -> Deskripsi Bagian -> Simpulan.</p>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('kuis')" class="bg-white text-emerald-700 font-bold px-4 py-2 rounded-lg text-xs hover:bg-emerald-50 transition">
+                        Lanjut ke Kuis →
+                    </button>
+                </div>
+
+                <!-- Failed Alert -->
+                <div id="game-failed-banner" class="hidden mt-6 bg-rose-500 text-white p-5 rounded-xl flex items-center justify-between shadow-lg">
+                    <div class="flex items-center gap-4">
+                        <span class="text-3xl">❌</span>
+                        <div>
+                            <h5 class="font-extrabold text-lg">Belum Tepat, Coba Lagi!</h5>
+                            <p class="text-xs text-rose-100">Pikirkanlah: mulailah dengan pengenalan objek, disusul rincian detail, lalu kesan penutup.</p>
+                        </div>
+                    </div>
+                    <button onclick="resetGame()" class="bg-white text-rose-700 font-bold px-4 py-2 rounded-lg text-xs hover:bg-rose-50 transition">
+                        Coba Lagi
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== TAB 4: KUIS EVALUASI ==================== -->
+        <div id="content-kuis" class="tab-content hidden transition-all duration-300">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold text-slate-800">📝 Kuis Evaluasi Struktur Teks</h3>
+                    <p class="text-slate-500 mt-2">Ujilah keahlian bahasamu! Jawablah 5 soal pilihan ganda di bawah ini dengan cermat.</p>
+                </div>
+
+                <!-- Quiz Progress -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm mb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span id="quiz-progress-text" class="text-sm font-semibold text-indigo-600">Pertanyaan 1 dari 5</span>
+                        <span id="quiz-score-badge" class="text-xs font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">Skor: 0</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="quiz-progress-bar" class="bg-indigo-600 h-full w-1/5 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Question Card -->
+                <div id="quiz-card" class="bg-white rounded-2xl p-6 md:p-8 border border-slate-100 shadow-md">
+                    <!-- Question Text -->
+                    <h4 id="question-text" class="text-lg md:text-xl font-bold text-slate-800 leading-relaxed mb-6">Pertanyaan dimuat...</h4>
+                    
+                    <!-- Options -->
+                    <div id="options-container" class="space-y-3">
+                        <!-- Options generated by JS -->
+                    </div>
+
+                    <!-- Next Button -->
+                    <div class="mt-8 flex justify-end">
+                        <button id="next-question-btn" disabled onclick="nextQuestion()" class="px-6 py-3 bg-slate-200 text-slate-500 font-bold text-sm rounded-xl transition shadow-sm cursor-not-allowed">
+                            Lanjut Soal →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Results Container -->
+                <div id="quiz-results" class="bg-white rounded-2xl p-8 border border-slate-100 shadow-xl text-center hidden">
+                    <span class="text-5xl block mb-4">🎓</span>
+                    <h4 class="text-2xl font-black text-slate-800">Kuis Selesai!</h4>
+                    <p class="text-slate-500 mt-1 mb-6">Inilah evaluasi hasil belajar mandiri Anda hari ini:</p>
+
+                    <div class="inline-flex items-center justify-center bg-indigo-50 border border-indigo-100 px-8 py-4 rounded-2xl mb-8">
+                        <div>
+                            <span class="text-xs text-slate-500 font-semibold block uppercase">Nilai Akhir</span>
+                            <span id="final-score" class="text-4xl font-black text-indigo-700">80</span>
+                        </div>
+                    </div>
+
+                    <p id="result-feedback" class="text-slate-600 font-medium max-w-md mx-auto mb-8">Hebat sekali! Kamu sudah memahami konsep-konsep dasar struktur teks deskripsi.</p>
+
+                    <div class="flex justify-center space-x-3">
+                        <button onclick="restartQuiz()" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition shadow-md active:scale-95">
+                            Ulangi Kuis
+                        </button>
+                        <button onclick="switchTab('materi')" class="px-6 py-3 border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl text-sm transition active:scale-95">
+                            Kembali ke Materi
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+            <p class="font-semibold text-slate-300">AksaraDeskripsi - Media Pembelajaran Interaktif Mandiri</p>
+            <p class="text-xs text-slate-500">Dirancang oleh Guru Ahli Bahasa Indonesia & Pengembang Media Pembelajaran Edukatif © 2026</p>
+            <div class="flex justify-center space-x-4 pt-2">
+                <span class="bg-slate-800 px-3 py-1 rounded-full text-xs">Aman & Terbuka</span>
+                <span class="bg-slate-800 px-3 py-1 rounded-full text-xs">Berbasis Kurikulum Merdeka</span>
+                <span class="bg-slate-800 px-3 py-1 rounded-full text-xs">Ramah Anak</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL MATERI DETAIL ==================== -->
+    <div id="materi-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 md:p-8 shadow-2xl relative border border-slate-100 transform transition-transform duration-300 scale-95">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                <h5 id="modal-title" class="text-xl font-bold text-slate-800">Nama Struktur</h5>
+                <button onclick="closeMateriModal()" class="text-slate-400 hover:text-slate-600 transition p-1.5 rounded-lg hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="space-y-4">
+                <div>
+                    <span class="text-xs font-bold text-slate-400 block uppercase">Penjelasan Utama</span>
+                    <p id="modal-explanation" class="text-slate-600 text-sm mt-1 leading-relaxed">Penjelasan materi...</p>
+                </div>
+                <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100">
+                    <span class="text-xs font-bold text-indigo-700 block uppercase mb-1">📖 Contoh Paragraf:</span>
+                    <p id="modal-example" class="text-slate-800 text-sm font-medium italic leading-relaxed text-justify">"Isi paragraf contoh..."</p>
+                </div>
+                <div id="modal-analysis-box" class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
+                    <span class="text-xs font-bold text-emerald-800 block uppercase mb-1">🔬 Bedah Bedah Ciri:</span>
+                    <p id="modal-analysis" class="text-slate-700 text-xs leading-relaxed">Mengapa paragraf di atas dikategorikan demikian...</p>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="mt-6 pt-4 border-t border-slate-100 flex justify-end">
+                <button onclick="closeMateriModal()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl transition">
+                    Paham, Terima Kasih!
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // Welcome Banner state
+        function dismissWelcome() {
+            const banner = document.getElementById('welcome-banner');
+            banner.style.opacity = '0';
+            banner.style.maxHeight = '0px';
+            banner.style.padding = '0px';
+            banner.style.margin = '0px';
+            setTimeout(() => banner.remove(), 500);
+        }
+
+        // Tab System
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Deactivate all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-indigo-700', 'shadow-sm');
+                btn.classList.add('text-indigo-100', 'hover:bg-indigo-700/50');
+            });
+
+            // Show target content
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+
+            // Activate target button
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            activeBtn.classList.add('bg-white', 'text-indigo-700', 'shadow-sm');
+            activeBtn.classList.remove('text-indigo-100', 'hover:bg-indigo-700/50');
+
+            // Update Global Status Text
+            const statusBadge = document.getElementById('global-status');
+            if (tabId === 'materi') statusBadge.textContent = 'Materi';
+            if (tabId === 'analisis') statusBadge.textContent = 'Analisis';
+            if (tabId === 'susun') statusBadge.textContent = 'Game';
+            if (tabId === 'kuis') statusBadge.textContent = 'Kuis';
+        }
+
+        // ==================== TAB 1: MODAL DATA & CONTROLLER ====================
+        const materiData = {
+            identifikasi: {
+                title: "Identifikasi / Gambaran Umum",
+                explanation: "Identifikasi berfungsi untuk memperkenalkan objek apa yang akan dipaparkan sebelum penulis menyajikannya secara mendetail. Bagian ini biasanya menjawab pertanyaan mendasar mengenai objek: Apa namanya? Di mana lokasinya? Mengapa dinamai demikian? Dan bagaimana gambaran umumnya di mata khalayak.",
+                example: "Pantai Senggigi merupakan salah satu destinasi wisata andalan di Provinsi Nusa Tenggara Barat. Pantai yang memesona ini terletak di Kecamatan Batu Layar, Kabupaten Lombok Barat, tepat di pesisir barat Pulau Lombok.",
+                analysis: "Paragraf ini memuat struktur IDENTIFIKASI karena memperkenalkan nama objek secara umum ('Pantai Senggigi'), menyebutkan statusnya sebagai destinasi wisata unggulan, dan memaparkan informasi letak administratif secara mendalam."
+            },
+            deskripsi_bagian: {
+                title: "Deskripsi Bagian",
+                explanation: "Di tahap ini, penulis mulai mengerahkan panca indranya untuk melukiskan rincian fisik dari objek. Hal-hal yang dilihat, didengar, atau dicium dipaparkan sejelas mungkin agar pembaca dapat ikut 'merasakan' objek tersebut secara imajinatif.",
+                example: "Pantai Senggigi menawarkan keindahan terumbu karang yang menakjubkan di bawah air lautnya yang jernih membiru. Pasirnya berkilau putih keemasan saat disorot matahari sore, menyatu serasi dengan embusan angin pantai yang sepoi-sepoi basah serta riak ombak kecil yang berdesir lembut menyapu jemari kaki.",
+                analysis: "Paragraf ini memuat struktur DESKRIPSI BAGIAN karena mendeskripsikan elemen-elemen detail pantai secara fisik: air laut, pasir, angin, dan suara deburan ombak kecil."
+            },
+            simpulan: {
+                title: "Simpulan / Kesan Umum",
+                explanation: "Bagian opsional ini menjadi wadah bagi penulis untuk memberikan pendapat subyektif, komentar reflektif, perasaan pribadi, atau kekaguman terdalam yang ia miliki terhadap objek yang telah digambarkan secara lengkap tersebut.",
+                example: "Sungguh luar biasa eloknya Pantai Senggigi ini! Mengunjungi pantai ini selalu meninggalkan kedamaian batin tersendiri dan memantik rasa syukur kita atas karunia keindahan alam Indonesia yang megah.",
+                analysis: "Paragraf ini merupakan SIMPULAN/KESAN karena tidak lagi mengulas bagian detail objek, melainkan mengekspresikan kekaguman emosional penulis ('sungguh luar biasa eloknya', 'meninggalkan kedamaian batin', 'rasa syukur')."
+            }
+        };
+
+        function showMateriModal(key) {
+            const data = materiData[key];
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-explanation').textContent = data.explanation;
+            document.getElementById('modal-example').textContent = data.example;
+            document.getElementById('modal-analysis').textContent = data.analysis;
+
+            const modal = document.getElementById('materi-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('div').classList.remove('scale-95');
+                modal.querySelector('div').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeMateriModal() {
+            const modal = document.getElementById('materi-modal');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 150);
+        }
+
+        // ==================== TAB 2: ANALISIS INTERAKTIF ====================
+        const analisisData = {
+            1: {
+                structure: "Identifikasi",
+                badgeClass: "bg-indigo-100 text-indigo-800",
+                name: "Identifikasi / Gambaran Umum",
+                reason: "Paragraf pertama ini bertindak sebagai pintu gerbang pengenalan. Penulis menetapkan fokus objek yang dibahas, yaitu 'Candi Borobudur'.",
+                features: [
+                    "Menyebutkan nama objek secara eksplisit (Candi Borobudur).",
+                    "Memberikan koordinat lokasi geografis umum (Magelang, Provinsi Jawa Tengah).",
+                    "Menjelaskan latar belakang sejarah singkat (Abad ke-8 oleh Wangsa Syailendra) sebagai basis pengenal awal objek."
+                ]
+            },
+            2: {
+                structure: "Deskripsi Bagian",
+                badgeClass: "bg-emerald-100 text-emerald-800",
+                name: "Deskripsi Bagian (Rincian Fisik)",
+                reason: "Penulis mengeksplorasi ciri-ciri arsitektur fisik objek secara visual. Fokus bergeser dari pengenalan luar ke detail bagian-bagian candi.",
+                features: [
+                    "Melukiskan bentuk spasial bangunan (sembilan pelataran bertingkat, stupa induk).",
+                    "Memberikan visualisasi ornamen dinding (relief indah berukir).",
+                    "Melibatkan citraan penglihatan secara spesifik (stupa berongga berbentuk lonceng, patung Buddha bermeditasi)."
+                ]
+            },
+            3: {
+                structure: "Simpulan / Kesan",
+                badgeClass: "bg-amber-100 text-amber-800",
+                name: "Simpulan / Kesan Penutup",
+                reason: "Merupakan penutup teks yang tidak lagi merinci fisik bangunan, melainkan menyimpulkan kesan pribadi yang dirasakan oleh penulis.",
+                features: [
+                    "Menunjukkan reaksi emosional subjektif penulis ('menimbulkan kekaguman yang mendalam bagi saya').",
+                    "Menilai signifikansi objek secara umum ('memancarkan kedamaian dan keindahan yang tak lekang oleh waktu').",
+                    "Berfungsi sebagai penutup manis (opsional) untuk merangkum seluruh esensi deskripsi."
+                ]
+            }
+        };
+
+        function analyzeParagraph(id) {
+            // Remove highlight classes from all paragraphs
+            for (let i = 1; i <= 3; i++) {
+                const p = document.getElementById(`p-analisis-${i}`);
+                p.className = "p-4 rounded-xl cursor-pointer border border-transparent hover:border-indigo-200 hover:bg-indigo-50/40 transition-all duration-200 group";
+                p.querySelector('.status-dot').className = "status-dot w-2.5 h-2.5 rounded-full bg-slate-300";
+            }
+
+            // Highlight target paragraph
+            const targetP = document.getElementById(`p-analisis-${id}`);
+            const data = analisisData[id];
+
+            if (id === 1) {
+                targetP.classList.add('border-indigo-400', 'bg-indigo-50/60');
+                targetP.querySelector('.status-dot').className = "status-dot w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse";
+            } else if (id === 2) {
+                targetP.classList.add('border-emerald-400', 'bg-emerald-50/60');
+                targetP.querySelector('.status-dot').className = "status-dot w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
+            } else if (id === 3) {
+                targetP.classList.add('border-amber-400', 'bg-amber-50/60');
+                targetP.querySelector('.status-dot').className = "status-dot w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
+            }
+
+            // Populate and show the Analysis Panel
+            document.getElementById('analysis-panel-empty').classList.add('hidden');
+            const resultPanel = document.getElementById('analysis-panel-result');
+            resultPanel.classList.remove('hidden');
+
+            const badge = document.getElementById('structure-badge');
+            badge.textContent = data.structure;
+            badge.className = `px-3 py-1 text-xs font-bold rounded-full ${data.badgeClass}`;
+
+            document.getElementById('structure-name').textContent = data.name;
+            document.getElementById('structure-reason').textContent = data.reason;
+
+            // Populate features
+            const featuresList = document.getElementById('structure-features');
+            featuresList.innerHTML = '';
+            data.features.forEach(feat => {
+                const li = document.createElement('li');
+                li.textContent = feat;
+                featuresList.appendChild(li);
+            });
+        }
+
+        // ==================== TAB 3: GAME SUSUN PARAGRAF ====================
+        const initialGameData = [
+            {
+                id: "A",
+                actualOrder: 2, // Deskripsi Bagian
+                text: "Kiko memiliki bulu yang sangat lebat berwarna putih bersih seperti kapas. Daun telinganya panjang dan tegak berdiri jika ia mendengar suara asing. Matanya bulat berwarna kemerahan bersinar jernih saat menatapku. Setiap kali aku mendekatinya, hidung mungilnya bergerak-gerak menggemaskan seolah sedang mengendus makanan kesukaannya, yaitu wortel segar."
+            },
+            {
+                id: "B",
+                actualOrder: 3, // Simpulan
+                text: "Aku merasa sangat bahagia memelihara Kiko di rumah. Kehadirannya selalu menjadi pelipur lara dan teman bermain terbaik yang menghilangkan rasa letihku setelah seharian belajar di sekolah."
+            },
+            {
+                id: "C",
+                actualOrder: 1, // Identifikasi
+                text: "Aku mempunyai seekor hewan peliharaan kesayangan berupa kelinci hias jenis anggora yang kuberi nama Kiko. Kiko merupakan hadiah istimewa yang diberikan oleh pamanku saat perayaan hari ulang tahunku yang ke-12 tahun lalu."
+            }
+        ];
+
+        let gameState = [];
+
+        function initGame() {
+            // Deep copy and shuffle initially
+            gameState = [...initialGameData];
+            shuffleArray(gameState);
+            renderGameBoard();
+            
+            // Hide banners
+            document.getElementById('game-success-banner').classList.add('hidden');
+            document.getElementById('game-failed-banner').classList.add('hidden');
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function renderGameBoard() {
+            const container = document.getElementById('scrambled-container');
+            container.innerHTML = '';
+
+            gameState.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-xl border border-indigo-100 shadow-sm transition-all duration-300 flex items-center gap-4 hover:border-indigo-300";
+                
+                card.innerHTML = `
+                    <!-- Controls -->
+                    <div class="flex flex-col space-y-2">
+                        <button onclick="moveCard(${index}, -1)" ${index === 0 ? 'disabled' : ''} class="p-1.5 rounded-lg bg-slate-100 hover:bg-indigo-100 text-slate-600 hover:text-indigo-700 disabled:opacity-30 disabled:pointer-events-none transition">
+                            ▲
+                        </button>
+                        <span class="text-center font-bold text-slate-400 text-xs">${index + 1}</span>
+                        <button onclick="moveCard(${index}, 1)" ${index === gameState.length - 1 ? 'disabled' : ''} class="p-1.5 rounded-lg bg-slate-100 hover:bg-indigo-100 text-slate-600 hover:text-indigo-700 disabled:opacity-30 disabled:pointer-events-none transition">
+                            ▼
+                        </button>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="flex-grow">
+                        <p class="text-sm text-slate-700 leading-relaxed text-justify">${item.text}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function moveCard(index, direction) {
+            const targetIndex = index + direction;
+            if (targetIndex >= 0 && targetIndex < gameState.length) {
+                // Swap
+                const temp = gameState[index];
+                gameState[index] = gameState[targetIndex];
+                gameState[targetIndex] = temp;
+                
+                renderGameBoard();
+                // Reset banners on move
+                document.getElementById('game-success-banner').classList.add('hidden');
+                document.getElementById('game-failed-banner').classList.add('hidden');
+            }
+        }
+
+        function resetGame() {
+            initGame();
+        }
+
+        function checkGameOrder() {
+            let correct = true;
+            for (let i = 0; i < gameState.length; i++) {
+                if (gameState[i].actualOrder !== (i + 1)) {
+                    correct = false;
+                    break;
+                }
+            }
+
+            if (correct) {
+                document.getElementById('game-success-banner').classList.remove('hidden');
+                document.getElementById('game-failed-banner').classList.add('hidden');
+                // Give global points/award
+                updateGlobalScore(100);
+            } else {
+                document.getElementById('game-failed-banner').classList.remove('hidden');
+                document.getElementById('game-success-banner').classList.add('hidden');
+            }
+        }
+
+        // ==================== TAB 4: KUIS EVALUASI ====================
+        const quizData = [
+            {
+                question: "Struktur teks deskripsi yang berisi pengenalan mengenai nama objek, lokasi objek, atau gambaran umum mengenai suatu objek disebut...",
+                options: [
+                    { text: "A. Deskripsi Bagian", correct: false },
+                    { text: "B. Simpulan / Kesan", correct: false },
+                    { text: "C. Identifikasi / Gambaran Umum", correct: true },
+                    { text: "D. Orientasi / Klasifikasi", correct: false }
+                ],
+                explanation: "Struktur pembuka teks deskripsi yang memuat nama objek, lokasi geografis, sejarah, dan karakteristik global adalah Identifikasi."
+            },
+            {
+                question: "Perhatikan kalimat berikut: 'Ombak menyapu bibir pantai dengan desiran merdu yang bersahut-sahutan di bawah rimbunnya pohon kelapa.' Kutipan ini menonjolkan pancaindra...",
+                options: [
+                    { text: "A. Pendengaran & Penglihatan", correct: true },
+                    { text: "B. Perabaan & Pencecap", correct: false },
+                    { text: "C. Penciuman & Penglihatan", correct: false },
+                    { text: "D. Hanya Pendengaran", correct: false }
+                ],
+                explanation: "'Desiran merdu bersahut-sahutan' merujuk ke indra Pendengaran, sedangkan 'di bawah rimbunnya pohon kelapa' menggambarkan penampakan visual melalui indra Penglihatan."
+            },
+            {
+                question: "Bagian struktur teks deskripsi yang berisi perincian mendetail berdasarkan tanggapan subjektif penulis dengan melukiskan rincian fisik bagian objek disebut...",
+                options: [
+                    { text: "A. Kesimpulan", correct: false },
+                    { text: "B. Deskripsi Bagian", correct: true },
+                    { text: "C. Identifikasi", correct: false },
+                    { text: "D. Klasifikasi", correct: false }
+                ],
+                explanation: "Deskripsi bagian membedah objek ke komponen-komponen yang lebih kecil, memaparkan tekstur, warna, atau rincian spesifik hasil pengamatan subjektif penulis."
+            },
+            {
+                question: "Struktur 'Simpulan/Kesan' dalam penulisan teks deskripsi memiliki sifat...",
+                options: [
+                    { text: "A. Wajib dicantumkan di awal teks", correct: false },
+                    { text: "B. Hanya boleh berupa puisi bebas", correct: false },
+                    { text: "C. Opsional (boleh ada, boleh tidak ada)", correct: true },
+                    { text: "D. Selalu lebih panjang dari deskripsi bagian", correct: false }
+                ],
+                explanation: "Struktur simpulan atau kesan umum penulis tidak bersifat mutlak (opsional). Teks deskripsi tetap valid dan utuh meskipun tidak dilengkapi simpulan."
+            },
+            {
+                question: "Bacalah teks berikut:\n'Sungguh menakjubkan panorama Candi Prambanan saat senja. Kemegahannya menyisakan rasa takjub tak berujung dan membuat hati terpikat akan kejayaan leluhur bangsa.'\n\nKutipan di atas tergolong ke dalam struktur teks deskripsi bagian...",
+                options: [
+                    { text: "A. Identifikasi", correct: false },
+                    { text: "B. Pengenalan Umum", correct: false },
+                    { text: "C. Deskripsi Bagian", correct: false },
+                    { text: "D. Simpulan / Kesan", correct: true }
+                ],
+                explanation: "Teks tersebut mengekspresikan opini bernada kagum ('rasa takjub', 'membuat hati terpikat') yang mencerminkan kesan personal penulis terhadap objek."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let quizScore = 0;
+        let answeredCurrent = false;
+
+        function loadQuestion() {
+            answeredCurrent = false;
+            document.getElementById('next-question-btn').disabled = true;
+            document.getElementById('next-question-btn').className = "px-6 py-3 bg-slate-200 text-slate-500 font-bold text-sm rounded-xl transition shadow-sm cursor-not-allowed";
+
+            const currentQuiz = quizData[currentQuestionIndex];
+            
+            // Progress Update
+            document.getElementById('quiz-progress-text').textContent = `Pertanyaan ${currentQuestionIndex + 1} dari ${quizData.length}`;
+            document.getElementById('quiz-progress-bar').style.width = `${((currentQuestionIndex + 1) / quizData.length) * 100}%`;
+            document.getElementById('quiz-score-badge').textContent = `Skor Sementara: ${Math.round((quizScore / quizData.length) * 100)}`;
+
+            // Question Text
+            document.getElementById('question-text').textContent = currentQuiz.question;
+
+            // Generate Options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            currentQuiz.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-slate-50 transition duration-150 flex items-center justify-between group";
+                btn.onclick = () => selectOption(idx);
+                
+                btn.innerHTML = `
+                    <span class="font-medium text-slate-700 text-sm md:text-base">${opt.text}</span>
+                    <span class="icon-placeholder w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center text-xs"></span>
+                `;
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex) {
+            if (answeredCurrent) return; // Prevent multi-click
+            answeredCurrent = true;
+
+            const currentQuiz = quizData[currentQuestionIndex];
+            const optionsContainer = document.getElementById('options-container');
+            const buttons = optionsContainer.getElementsByTagName('button');
+
+            currentQuiz.options.forEach((opt, idx) => {
+                const btn = buttons[idx];
+                btn.disabled = true;
+                btn.className = "w-full text-left p-4 rounded-xl border transition duration-150 flex items-center justify-between cursor-not-allowed ";
+                const icon = btn.querySelector('.icon-placeholder');
+
+                if (opt.correct) {
+                    btn.classList.add('border-emerald-500', 'bg-emerald-50/50');
+                    icon.className = "w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold";
+                    icon.innerHTML = "✓";
+                } else if (idx === selectedIndex) {
+                    btn.classList.add('border-rose-500', 'bg-rose-50/50');
+                    icon.className = "w-6 h-6 rounded-full bg-rose-500 text-white flex items-center justify-center text-xs font-bold";
+                    icon.innerHTML = "✗";
+                } else {
+                    btn.classList.add('border-slate-200', 'opacity-60');
+                }
+            });
+
+            // Is Correct?
+            if (currentQuiz.options[selectedIndex].correct) {
+                quizScore++;
+            }
+
+            // Create/Show Explanation
+            const explanationDiv = document.createElement('div');
+            explanationDiv.className = "mt-4 p-4 rounded-xl bg-slate-50 border-l-4 border-indigo-500 text-xs md:text-sm text-slate-600 leading-relaxed";
+            explanationDiv.innerHTML = `<strong>💡 Ulasan Singkat:</strong> ${currentQuiz.explanation}`;
+            optionsContainer.appendChild(explanationDiv);
+
+            // Enable Next Button
+            const nextBtn = document.getElementById('next-question-btn');
+            nextBtn.disabled = false;
+            nextBtn.className = "px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl transition shadow-md active:scale-95";
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quiz-card').classList.add('hidden');
+            const resultsCard = document.getElementById('quiz-results');
+            resultsCard.classList.remove('hidden');
+
+            const finalScore = Math.round((quizScore / quizData.length) * 100);
+            document.getElementById('final-score').textContent = finalScore;
+            updateGlobalScore(finalScore);
+
+            const feedback = document.getElementById('result-feedback');
+            if (finalScore === 100) {
+                feedback.textContent = "Sempurna! Kamu adalah Mahaguru Struktur Teks Deskripsi. Pertahankan pemahaman luar biasa ini!";
+            } else if (finalScore >= 80) {
+                feedback.textContent = "Hebat sekali! Pemahamanmu sangat tajam. Hanya perlu sedikit ketelitian untuk meraih poin penuh berikutnya.";
+            } else if (finalScore >= 60) {
+                feedback.textContent = "Bagus! Kamu sudah mengerti konsep dasar struktur teks deskripsi, luangkan waktu sedikit lagi untuk mempelajari contoh teks.";
+            } else {
+                feedback.textContent = "Jangan berkecil hati. Mari buka kembali modul 'Materi Interaktif' di atas, lalu coba tantangan kuis ini lagi!";
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-card').classList.remove('hidden');
+            document.getElementById('quiz-results').classList.add('hidden');
+            loadQuestion();
+        }
+
+        // ==================== GLOBAL SCORE & STATE CONTROLLER ====================
+        let currentScore = 0;
+
+        function updateGlobalScore(score) {
+            currentScore = score;
+            document.getElementById('global-score').textContent = `${score}/100`;
+        }
+
+        // Window Load
+        window.onload = function() {
+            initGame();
+            loadQuestion();
+        };
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+      <h1 class="title">Hello World!</h1>
+      <p id="currentTime"></p>
+      <script src="script.js"></script>
+  </body>
+</html>
